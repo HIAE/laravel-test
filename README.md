@@ -12,12 +12,12 @@ Jefferson é o diretor da área de tecnologia de uma multinacional, e teve a ide
 Seu objetivo aqui é ajudar *Jeff* a construir a API para a aplicação. Simples 😋
 
 ### O escopo: 
-- Como usuário *idealizador* posso gerir minhas ideias
+- Como usuário *idealizador* tenho permissão para gerir minhas ideias. Nas ideias de outras pessoas, posso somente comentar e votar
 - Qualquer usuário pode editar suas infos pessoais
 - As ideias passarão por um fluxo de aprovação, onde a cada estágio terá um status específico: nova, em análise, em progresso, implementada, fechada
-- Como usuário *administrador*, tenho acesso total a aplicação: usuários, ideias, categorias, papeis, etc
+- Como usuário *administrador*, tenho acesso total a aplicação: usuários, ideias, categorias, papeis, status, etc
 - Os endpoints devem ser protegidos com autenticação
-- É interessante que ao removermos uma informação de uma tabela, possamos restaurá-la sempre que possível
+- É interessante que, ao removermos uma informação de uma tabela, possamos restaurá-la sempre que possível
 
 ### Desafios principais
  - Criar os endpoints CRUD para todas as tabelas (já conseguiu identificá-las?)
@@ -47,9 +47,10 @@ Ufa... respira... quer tomar uma água ou café?! ☕️
 - Capacidade de decisão (vc terá de tomar algumas decisões importantes nesse projeto, queremos entender o por quê)
 
 E..... agora sim. Finalizamos por aqui.  
-Faça um fork desse projeto, e ao final envie-nos uma PR :D  
+Faça um fork desse repo, e ao final envie-nos uma PR :D  
 Não se esqueça: faça algo que se orgulhe, algo incrível!  
 
 E ah, se tiver dúvidas ou encontrar algum problema, abra uma issue. Estaremos de olho.
 
-Valeu Natalina
+Valeu Natalina 🪅🎄  
+Beijos e queijos <3
