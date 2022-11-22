@@ -7,7 +7,7 @@ Gostamos de café;
 E também gostamos de desafios, portanto tomamos a liberdade de criar este, especialmente para você 🥳 🎉
 
 Aperte os cintos e vamos direto ao ponto:  
-Jefferson é o diretor da área de tecnologia de uma multinacional, e teve a ideia de criar um app para **Colher Ideias** de seus funcionários. Ele quer criar um ambiente mais dinâmico e criativo ao seu redor. As pessoas terão acesso a aplicação para compartilhar suas ideias, comentar e votar em ideias de outras pessoas.  
+Jefferson é o diretor da área de tecnologia de uma multinacional, e teve a ideia de criar um app para **Colher Ideias** de seus funcionários. Ele quer criar um ambiente mais dinâmico e criativo ao seu redor. Para isso, as pessoas terão acesso a aplicação para compartilhar suas ideias, comentar e votar em ideias de outras pessoas.  
 
 Seu objetivo aqui é ajudar *Jeff* a construir a API para a aplicação. Simples 😋
 
@@ -32,7 +32,7 @@ Seu objetivo aqui é ajudar *Jeff* a construir a API para a aplicação. Simples
 - Pagine os endpoints de listagem
 
 ### Diferenciais - se quiser SUPERAR as expectativas
-- Escreva ao menos 5 testes unitários e/ou testes de feature (Não precisa inventar moda pra fazer bonito, faça bonito com o que você sabe ;D)
+- Escreva ao menos 3 testes unitários ou testes de feature (Não precisa inventar moda pra fazer bonito, faça bonito com o que você sabe ;D)
 - Implemente uma feature para o upload de uma foto do usuário
 - Implemente também um endpoint para busca de ideias por palavra chave
 - Já ouviu falar em Service/Repository Pattern? A gente ama! Bora arregaçar as mangas e implementá-lo?
