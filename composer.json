@@ -47,7 +47,7 @@
             "@php artisan key:generate --ansi"
         ],
         "tests": [
-            "@php artisan test",
+            "./vendor/bin/sail test",
             "composer audit",
             "./vendor/bin/pint --test -v"
         ]
