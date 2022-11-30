@@ -16,8 +16,8 @@ class LoginController extends Controller
 
         if (! Auth::attempt($credentials)) {
             return response([
-                    'message' => 'As credenciais fornecidas não correspondem aos nossos registros',
-                ], 401)
+                'message' => 'As credenciais fornecidas não correspondem aos nossos registros',
+            ], 401)
                 ->header('Content-Type', 'text/plain');
         }
 

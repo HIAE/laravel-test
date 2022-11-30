@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class LoginTest extends TestCase
@@ -22,7 +21,7 @@ class LoginTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJsonStructure([
-                'token'
+                'token',
             ]);
     }
 
@@ -37,7 +36,7 @@ class LoginTest extends TestCase
 
         $response->assertStatus(401)
             ->assertJsonStructure([
-                'message'
+                'message',
             ]);
     }
 
