@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -11,7 +14,8 @@
 |
 */
 
-uses(Tests\TestCase::class)->in('Feature');
+// Uses the given test case and trait in the current folder recursively
+uses(Tests\TestCase::class, DatabaseTransactions::class)->in(__DIR__);
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +43,12 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+/**
+ * Set the currently logged in user for the application.
+ *
+ * @return TestCase
+ */
+function actingAs(Authenticatable $user, string $driver = null)
 {
-    // ..
+    return test()->actingAs($user, $driver);
 }
