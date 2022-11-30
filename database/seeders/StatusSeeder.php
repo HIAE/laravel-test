@@ -16,11 +16,11 @@ class StatusSeeder extends Seeder
     public function run()
     {
         DB::table('statuses')->insert([
-            ['name' => 'nova'],
-            ['name' => 'em análise'],
-            ['name' => 'em progresso'],
-            ['name' => 'implementada'],
-            ['name' => 'fechada'],
+            ['number' => 1, 'name' => 'nova'],
+            ['number' => 2, 'name' => 'em análise'],
+            ['number' => 3, 'name' => 'em progresso'],
+            ['number' => 4, 'name' => 'implementada'],
+            ['number' => 5, 'name' => 'fechada'],
         ]);
     }
 }
