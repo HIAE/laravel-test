@@ -64,6 +64,14 @@ class User extends Authenticatable
         return $this->belongsToMany(Group::class, 'user_group');
     }
 
+    /**
+     * Get the ideas for the user.
+     */
+    public function ideas()
+    {
+        return $this->hasMany(Idea::class);
+    }
+
     // Custom Methods
 
     /**
