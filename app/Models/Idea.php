@@ -11,6 +11,11 @@ class Idea extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $casts = [
+        'comments_count' => 'integer',
+        'votes_count' => 'integer',
+    ];
+
     protected $hidden = [
         'deleted_at',
     ];
