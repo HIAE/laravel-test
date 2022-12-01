@@ -44,7 +44,7 @@ class IdeaRepository implements IdeaRepositoryInterface
      * @param  IdeaModel $idea
      * @return mixed
      */
-    public function updateById(array $data, IdeaModel $idea)
+    public function update(array $data, IdeaModel $idea)
     {
         return DB::transaction(function () use ($data, $idea) {
             $idea->update($data);
@@ -58,7 +58,7 @@ class IdeaRepository implements IdeaRepositoryInterface
      * @param  IdeaModel $idea
      * @return mixed
      */
-    public function deleteById(IdeaModel $idea)
+    public function delete(IdeaModel $idea)
     {
         return DB::transaction(function () use ($idea) {
             return $idea->delete();

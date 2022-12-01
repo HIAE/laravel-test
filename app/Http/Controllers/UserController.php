@@ -65,7 +65,7 @@ class UserController extends Controller
         UserRepository $repository
     ) {
         $dataValidated = $request->validated();
-        $result = $repository->updateById($dataValidated, $user);
+        $result = $repository->update($dataValidated, $user);
 
         return $result ?
             response()->json() :
@@ -83,7 +83,7 @@ class UserController extends Controller
         User $user,
         UserRepository $repository,
     ) {
-        $result = $repository->deleteById($user);
+        $result = $repository->delete($user);
         return $result ?
             response()->json(status: 204) :
             response()->json(['error: Não foi possível excluir os dados.'], 500);

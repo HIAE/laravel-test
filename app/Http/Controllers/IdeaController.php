@@ -62,7 +62,7 @@ class IdeaController extends Controller
         IdeaRepository $repository,
     ) {
         $dataValidated = $request->validated();
-        $result = $repository->updateById($dataValidated, $idea);
+        $result = $repository->update($dataValidated, $idea);
 
         return $result ?
             response()->json() :
@@ -80,7 +80,7 @@ class IdeaController extends Controller
         IdeaModel $idea,
         IdeaRepository $repository,
     ) {
-        $result = $repository->deleteById($idea);
+        $result = $repository->delete($idea);
 
         return $result ?
             response()->json(status: 204) :

@@ -8,6 +8,6 @@ interface IdeaRepositoryInterface
 {
     public function __construct();
     public function new(array $data);
-    public function updateById(array $data, IdeaModel $idea);
-    public function deleteById(IdeaModel $idea);
+    public function update(array $data, IdeaModel $idea);
+    public function delete(IdeaModel $idea);
 }

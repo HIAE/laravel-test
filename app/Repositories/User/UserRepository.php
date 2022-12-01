@@ -33,7 +33,7 @@ class UserRepository implements UserRepositoryInterface
      * @param  UserModel $user
      * @return mixed
      */
-    public function updateById(array $data, UserModel $user)
+    public function update(array $data, UserModel $user)
     {
         return DB::transaction(function () use ($data, $user) {
             $user->update($data);
@@ -47,7 +47,7 @@ class UserRepository implements UserRepositoryInterface
      * @param  UserModel $user
      * @return mixed
      */
-    public function deleteById(UserModel $user)
+    public function delete(UserModel $user)
     {
         return DB::transaction(function () use ($user) {
             return $user->delete();

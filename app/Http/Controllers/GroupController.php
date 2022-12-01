@@ -55,7 +55,7 @@ class GroupController extends Controller
     public function update(UpdateRequest $request, Group $group, GroupRepository $repository)
     {
         $dataValidated = $request->validated();
-        $result = $repository->updateById($dataValidated, $group);
+        $result = $repository->update($dataValidated, $group);
 
         return $result ?
             response()->json() :
@@ -73,7 +73,7 @@ class GroupController extends Controller
         Group $group,
         GroupRepository $repository,
     ) {
-        $result = $repository->deleteById($group);
+        $result = $repository->delete($group);
         return $result ?
             response()->json(status: 204) :
             response()->json(['error: Não foi possível excluir os dados.'], 500);

@@ -8,6 +8,6 @@ interface GroupRepositoryInterface
 {
     public function __construct();
     public function new(array $data);
-    public function updateById(array $user, GroupModel $group);
-    public function deleteById(GroupModel $UserGroup);
+    public function update(array $user, GroupModel $group);
+    public function delete(GroupModel $UserGroup);
 }

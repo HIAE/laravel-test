@@ -21,7 +21,7 @@ class GroupRepository implements GroupRepositoryInterface
         });
     }
 
-    public function updateById(array $data, GroupModel $group)
+    public function update(array $data, GroupModel $group)
     {
         return DB::transaction(function () use ($data, $group) {
             $group->description = $data['description'];
@@ -29,7 +29,7 @@ class GroupRepository implements GroupRepositoryInterface
         });
     }
 
-    public function deleteById(GroupModel $group)
+    public function delete(GroupModel $group)
     {
         return DB::transaction(function () use ($group) {
             return $group->delete();

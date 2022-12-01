@@ -8,6 +8,6 @@ interface UserRepositoryInterface
 {
     public function __construct();
     public function new(array $data);
-    public function updateById(array $data, UserModel $user);
-    public function deleteById(UserModel $user);
+    public function update(array $data, UserModel $user);
+    public function delete(UserModel $user);
 }
