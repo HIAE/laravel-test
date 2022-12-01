@@ -19,6 +19,7 @@ class IdeaController extends Controller
     {
         $status_id = $request->get('status');
         $category_id = $request->get('category');
+        $keyword = $request->get('q');
 
         return Idea::when(
             $status_id,
@@ -27,6 +28,12 @@ class IdeaController extends Controller
             ->when(
                 $category_id,
                 fn ($query) => $query->where('category_id', '=', $category_id)
+            )
+            ->when(
+                $keyword,
+                fn ($query) => $query
+                    ->where('title', 'like', "%{$keyword}%")
+                    ->orWhere('description', 'like', "%{$keyword}%")
             )
             ->with([
                 'user:id,name',
