@@ -6,7 +6,6 @@ use App\Models\Idea;
 use App\Models\User;
 use App\Models\Vote;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
@@ -27,7 +26,7 @@ class VoteTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                'message' => 'Voto realizado com sucesso'
+                'message' => 'Voto realizado com sucesso',
             ]);
 
         $response = $this->postJson("/api/ideas/{$idea->id}/votes");

@@ -16,7 +16,7 @@ class VoteController extends Controller
 
         if ($alreadyVoted) {
             return response([
-                'message' => 'Seu voto já foi realizado para esta ideia'
+                'message' => 'Seu voto já foi realizado para esta ideia',
             ], 400);
         }
 
