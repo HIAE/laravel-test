@@ -19,32 +19,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->prefix('api')
-//     ->get('/user', function (Request $request) {
-//         return $request->user();
-//     });
-
-// Route::group(['prefix' => 'auth', 'namespace' => 'Api'], function () {
-
-//     Route::post('register',     'AuthController@register');
-//     Route::post('login',        'AuthController@login');
-
-//     Route::group(['middleware' => 'auth:sanctum'], function () {
-//         Route::get('logout',    'AuthController@logout');
-//         Route::get('user',      'AuthController@getUser');
-//     });
-
-//     Route::any('{segment}', function () {
-//         return response()->json(['error' => 'Bad request.'], 400);
-//     })->where('segment', '.*');
-// });
-
 Route::prefix('/users/')->group(function () {
-    Route::get('{user}', [UserController::class, 'show']);
-    Route::post('/', [UserController::class, 'store']);
-    Route::put('{user}', [UserController::class, 'update']);
-    Route::delete('{user}', [UserController::class, 'destroy']);
-    Route::get('/', [UserController::class, 'index']);
+    Route::get('{user}', [UserController::class, 'show'])->name('user.show');
+    Route::post('/', [UserController::class, 'store'])->name('user.store');
+    Route::put('{user}', [UserController::class, 'update'])->name('user.update');
+    Route::delete('{user}', [UserController::class, 'destroy'])->name('user.destroy');
+    Route::get('/', [UserController::class, 'index'])->name('user.index');
 });
 
 Route::prefix('/groups/')->group(function () {
@@ -56,37 +36,33 @@ Route::prefix('/groups/')->group(function () {
 });
 
 Route::prefix('/votes/')->group(function () {
-    Route::get('{vote}', [VoteController::class, 'show']);
-    Route::post('/', [VoteController::class, 'store']);
-    Route::put('{vote}', [VoteController::class, 'update']);
-    Route::delete('{vote}', [VoteController::class, 'destroy']);
-    Route::get('/', [VoteController::class, 'index']);
+    Route::get('{vote}', [VoteController::class, 'show'])->name('vote.show');
+    Route::post('/', [VoteController::class, 'store'])->name('vote.store');
+    Route::put('{vote}', [VoteController::class, 'update'])->name('vote.update');
+    Route::delete('{vote}', [VoteController::class, 'destroy'])->name('vote.destroy');
+    Route::get('/', [VoteController::class, 'index'])->name('vote.index');
 });
 
 Route::prefix('/comments/')->group(function () {
-    Route::get('{comment}', [CommentController::class, 'show']);
-    Route::post('/', [CommentController::class, 'store']);
-    Route::put('{comment}', [CommentController::class, 'update']);
-    Route::delete('{comment}', [CommentController::class, 'destroy']);
-    Route::get('/', [CommentController::class, 'index']);
+    Route::get('{comment}', [CommentController::class, 'show'])->name('comment.show');
+    Route::post('/', [CommentController::class, 'store'])->name('comment.store');
+    Route::put('{comment}', [CommentController::class, 'update'])->name('comment.update');
+    Route::delete('{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');
+    Route::get('/', [CommentController::class, 'index'])->name('comment.index');
 });
 
 Route::prefix('/ideas/')->group(function () {
-    Route::get('{idea}', [IdeaController::class, 'show']);
-    Route::post('/', [IdeaController::class, 'store']);
-    Route::put('{idea}', [IdeaController::class, 'update']);
-    Route::delete('{idea}', [IdeaController::class, 'destroy']);
-    Route::get('/', [IdeaController::class, 'index']);
+    Route::get('{idea}', [IdeaController::class, 'show'])->name('idea.show');
+    Route::post('/', [IdeaController::class, 'store'])->name('idea.store');
+    Route::put('{idea}', [IdeaController::class, 'update'])->name('idea.update');
+    Route::delete('{idea}', [IdeaController::class, 'destroy'])->name('idea.destroy');
+    Route::get('/', [IdeaController::class, 'index'])->name('idea.index');
 });
 
 Route::prefix('/categories/')->group(function () {
-    Route::get('{category}', [CategoryController::class, 'show']);
-    Route::post('/', [CategoryController::class, 'store']);
-    Route::put('{category}', [CategoryController::class, 'update']);
-    Route::delete('{category}', [CategoryController::class, 'destroy']);
-    Route::get('/', [CategoryController::class, 'index']);
-});
-
-Route::get('/hello/', function () {
-    return JSON_ENCODE('Hello World!');
+    Route::get('{category}', [CategoryController::class, 'show'])->name('category.show');
+    Route::post('/', [CategoryController::class, 'store'])->name('category.store');
+    Route::put('{category}', [CategoryController::class, 'update'])->name('category.update');
+    Route::delete('{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
+    Route::get('/', [CategoryController::class, 'index'])->name('category.index');
 });
