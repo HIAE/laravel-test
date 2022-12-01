@@ -21,9 +21,9 @@ class IdeaController extends Controller
         $category_id = $request->get('category');
 
         return Idea::when(
-                $status_id,
-                fn ($query) => $query->where('status_id', '=', $status_id)
-            )
+            $status_id,
+            fn ($query) => $query->where('status_id', '=', $status_id)
+        )
             ->when(
                 $category_id,
                 fn ($query) => $query->where('category_id', '=', $category_id)
@@ -31,7 +31,7 @@ class IdeaController extends Controller
             ->with([
                 'user:id,name',
                 'category:id,name',
-                'status:id,name'
+                'status:id,name',
             ])
             ->paginate(15, [
                 'id',
