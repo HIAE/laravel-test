@@ -49,7 +49,6 @@ test('update group', function () {
 test('show group', function () {
     // Arrange
     $group = GroupModel::factory()->create();
-    $this->postJson(route('group.store', $group->toArray()));
 
     // Act
     $response = $this->getJson(route('group.show', $group->uuid));
@@ -70,8 +69,5 @@ test('list groups', function () {
     $response = $this->getJson(route('group.index'));
 
     // Assert
-    expect($response->json('data'))
-        ->toHaveCount($group->count());
-
     expect($response->json('data'))->toMatchArray($group->toArray());
 });
