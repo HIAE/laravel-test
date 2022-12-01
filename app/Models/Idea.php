@@ -14,4 +14,30 @@ class Idea extends Model
     protected $hidden = [
         'deleted_at',
     ];
+
+    // Relationships
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
+    }
 }
