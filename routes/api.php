@@ -30,6 +30,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('/ideas/{idea}/comments', CommentController::class)
         ->only(['index', 'store', 'update', 'destroy']);
 
+    Route::resource('/ideas/{idea}/votes', VoteController::class)
+        ->only(['store', 'destroy']);
+
     Route::get('/users/{user}', [UserController::class, 'show']);
     Route::put('/users/{user}', [UserController::class, 'update']);
     Route::delete('/users/{user}', [UserController::class, 'delete']);
