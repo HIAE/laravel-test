@@ -29,6 +29,10 @@ class VoteTest extends TestCase
                 'message' => 'Voto realizado com sucesso',
             ]);
 
+        $idea->refresh();
+
+        $this->assertEquals($idea->votes_count, 1);
+
         $response = $this->postJson("/api/ideas/{$idea->id}/votes");
 
         $response
