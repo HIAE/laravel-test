@@ -89,13 +89,13 @@ class CategoryTest extends TestCase
         $category = Category::first();
 
         $response = $this->putJson("/api/categories/{$category->id}", [
-            'name' => "Novo nome",
+            'name' => 'Novo nome',
         ]);
 
         $response
             ->assertStatus(403)
             ->assertJson([
-                'message' => "This action is unauthorized.",
+                'message' => 'This action is unauthorized.',
             ]);
     }
 
@@ -112,7 +112,7 @@ class CategoryTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                "message" => "A categoria {$category->name} foi removida.",
+                'message' => "A categoria {$category->name} foi removida.",
             ]);
     }
 
@@ -127,7 +127,7 @@ class CategoryTest extends TestCase
         $response
             ->assertStatus(403)
             ->assertJson([
-                'message' => "This action is unauthorized.",
+                'message' => 'This action is unauthorized.',
             ]);
     }
 }
