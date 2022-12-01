@@ -10,4 +10,8 @@ class Idea extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    protected $hidden = [
+        'deleted_at',
+    ];
 }
