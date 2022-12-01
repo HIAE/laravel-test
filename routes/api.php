@@ -1,7 +1,12 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VoteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +37,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::resource('/ideas/{idea}/votes', VoteController::class)
         ->only(['store', 'destroy']);
+
+    Route::resource('/status', StatusController::class)
+        ->only(['index', 'store', 'update', 'destroy']);
 
     Route::get('/users/{user}', [UserController::class, 'show']);
     Route::put('/users/{user}', [UserController::class, 'update']);
