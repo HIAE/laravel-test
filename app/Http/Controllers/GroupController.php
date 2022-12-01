@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Group\StoreRequest as GroupStoreRequest;
+use App\Http\Requests\Group\UpdateRequest;
+use App\Http\Resources\GroupCollection;
 use App\Models\Group;
 use App\Repositories\Group\GroupRepository;
-use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
@@ -16,7 +17,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        //
+        return new GroupCollection(Group::all());
     }
 
     /**
@@ -27,8 +28,8 @@ class GroupController extends Controller
      */
     public function store(GroupStoreRequest $request, GroupRepository $repository)
     {
-        $dataValiated = $request->validated();
-        $result = $repository->createNewGroup($dataValiated);
+        $dataValidated = $request->validated();
+        $result = $repository->new($dataValidated);
 
         return response()->json($result, 201);
     }
@@ -39,21 +40,26 @@ class GroupController extends Controller
      * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function show(Group $group)
+    public function show(Group $group, GroupRepository $repository)
     {
-        //
+        return response()->json($group->toArray());
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Group  $group
-     * @return \Illuminate\Http\Response
+     * @param  UpdateRequest $request
+     * @param  Group         $group
+     * @return Response
      */
-    public function update(Request $request, Group $group)
+    public function update(UpdateRequest $request, Group $group, GroupRepository $repository)
     {
-        //
+        $dataValidated = $request->validated();
+        $result = $repository->updateById($dataValidated, $group);
+
+        return $result ?
+            response()->json() :
+            response()->json(['error: Não foi possível atualizar os dados.'], 500);
     }
 
     /**
@@ -67,7 +73,9 @@ class GroupController extends Controller
         Group $group,
         GroupRepository $repository,
     ) {
-        $result = $repository->deleteGroupById($group);
-        return $result ? response(null, 204) : response(null, 500);
+        $result = $repository->deleteById($group);
+        return $result ?
+            response()->json(status: 204) :
+            response()->json(['error: Não foi possível excluir os dados.'], 500);
     }
 }
