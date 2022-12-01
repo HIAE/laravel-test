@@ -1,0 +1,61 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Models\Category;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Sanctum\Sanctum;
+use Tests\TestCase;
+
+class IdeaTest extends TestCase
+{
+    use RefreshDatabase;
+
+    protected $seed = true;
+
+    public function test_can_view_ideas()
+    {
+        Sanctum::actingAs(User::factory()->create());
+
+        $response = $this->getJson('/api/ideas');
+
+        $response
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                'current_page',
+                'data',
+                'links',
+                'total',
+            ]);
+    }
+
+    public function test_users_can_create_ideas()
+    {
+        Sanctum::actingAs(User::factory()->create());
+
+        $category = Category::where('name', '=', 'TI')->first();
+
+        $title = 'Alterar grupos do WhatsApp para Slack';
+        $description = 'Dessa forma os funcionários...';
+
+        $response = $this->postJson('/api/ideas', [
+            'title' => $title,
+            'description' => $description,
+            'categoryId' => $category->id,
+        ]);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'message' => 'Ideia criada com sucesso.',
+            ]);
+
+        $this
+            ->assertDatabaseHas('ideas', [
+                'title' => $title,
+                'description' => $description,
+                'category_id' => $category->id,
+            ]);
+    }
+}
