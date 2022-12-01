@@ -6,6 +6,11 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+    /**
+     * @lrd:start
+     * List users. Only for admins.
+     * @lrd:end
+     */
     public function index()
     {
         $this->authorize('viewAny', User::class);
@@ -13,6 +18,11 @@ class UserController extends Controller
         return User::paginate();
     }
 
+    /**
+     * @lrd:start
+     * List users. Only for admins.
+     * @lrd:end
+     */
     public function show(User $user)
     {
         $this->authorize('view', $user);
@@ -20,6 +30,11 @@ class UserController extends Controller
         return $user;
     }
 
+    /**
+     * @lrd:start
+     * User registration restrict to company's domain.
+     * @lrd:end
+     */
     public function store()
     {
         $validated = $this->validateFormData();
@@ -31,6 +46,11 @@ class UserController extends Controller
         return ['token' => $token->plainTextToken];
     }
 
+    /**
+     * @lrd:start
+     * Update users. Admins can update everyone, others only themselves.
+     * @lrd:end
+     */
     public function update(User $user)
     {
         $this->authorize('update', $user);
@@ -42,6 +62,11 @@ class UserController extends Controller
         return ['message' => "O usuário #{$user->id} foi atualizado com sucesso."];
     }
 
+    /**
+     * @lrd:start
+     * Delete user. Only for admins.
+     * @lrd:end
+     */
     public function delete(User $user)
     {
         $message = "O usuário #{$user->id} foi removido com sucesso.";
