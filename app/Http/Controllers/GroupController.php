@@ -40,7 +40,7 @@ class GroupController extends Controller
      * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function show(Group $group, GroupRepository $repository)
+    public function show(Group $group)
     {
         return response()->json($group->toArray());
     }
