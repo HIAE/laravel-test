@@ -37,7 +37,7 @@ class StoreRequest extends FormRequest
     public function attributes()
     {
         return [
-            'uuid' => 'id',
+            'uuid' => 'uuid',
             'description' => 'descrição',
         ];
     }
