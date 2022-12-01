@@ -12,7 +12,7 @@ class GroupRepository implements GroupRepositoryInterface
     {
     }
 
-    public function createNewGroup(array $data)
+    public function new(array $data)
     {
         return DB::transaction(function () use ($data) {
             $group = new GroupModel($data);
@@ -21,12 +21,15 @@ class GroupRepository implements GroupRepositoryInterface
         });
     }
 
-    public function updateGroupById(array $user, $id)
+    public function updateById(array $data, GroupModel $group)
     {
-        //
+        return DB::transaction(function () use ($data, $group) {
+            $group->description = $data['description'];
+            return $group->save();
+        });
     }
 
-    public function deleteGroupById(GroupModel $group)
+    public function deleteById(GroupModel $group)
     {
         return DB::transaction(function () use ($group) {
             return $group->delete();

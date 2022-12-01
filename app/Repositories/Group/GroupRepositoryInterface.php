@@ -7,7 +7,7 @@ use App\Models\Group as GroupModel;
 interface GroupRepositoryInterface
 {
     public function __construct();
-    public function createNewGroup(array $data);
-    public function updateGroupById(array $user, $id);
-    public function deleteGroupById(GroupModel $UserGroup);
+    public function new(array $data);
+    public function updateById(array $user, GroupModel $group);
+    public function deleteById(GroupModel $UserGroup);
 }
