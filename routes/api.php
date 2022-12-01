@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
@@ -36,52 +39,52 @@ use Illuminate\Support\Facades\Route;
 //     })->where('segment', '.*');
 // });
 
-Route::prefix('/user/')->group(function () {
+Route::prefix('/users/')->group(function () {
     Route::get('{user}', [UserController::class, 'show']);
     Route::post('/', [UserController::class, 'store']);
-    Route::put('{user}/update', [UserController::class, 'update']);
-    Route::delete('{user}/delete', [UserController::class, 'destroy']);
-    Route::get('{user}/list', [UserController::class, 'index']);
+    Route::put('{user}', [UserController::class, 'update']);
+    Route::delete('{user}', [UserController::class, 'destroy']);
+    Route::get('/', [UserController::class, 'index']);
 });
 
-Route::prefix('/group/')->group(function () {
-    Route::get('{group}', [GroupController::class, 'show']);
+Route::prefix('/groups/')->group(function () {
+    Route::get('{group}', [GroupController::class, 'show'])->name('group.show');
     Route::post('/', [GroupController::class, 'store'])->name('group.store');
-    Route::put('{group}/update', [GroupController::class, 'update']);
-    Route::delete('{group}/delete', [GroupController::class, 'destroy'])->name('group.destroy');
-    Route::get('{group}/list', [GroupController::class, 'index']);
+    Route::put('{group}', [GroupController::class, 'update'])->name('group.update');
+    Route::delete('{group}', [GroupController::class, 'destroy'])->name('group.destroy');
+    Route::get('/', [GroupController::class, 'index'])->name('group.index');
 });
 
-Route::prefix('/vote/')->group(function () {
+Route::prefix('/votes/')->group(function () {
     Route::get('{vote}', [VoteController::class, 'show']);
     Route::post('/', [VoteController::class, 'store']);
-    Route::put('{vote}/update', [VoteController::class, 'update']);
-    Route::delete('{vote}/delete', [VoteController::class, 'destroy']);
-    Route::get('{vote}/list', [VoteController::class, 'index']);
+    Route::put('{vote}', [VoteController::class, 'update']);
+    Route::delete('{vote}', [VoteController::class, 'destroy']);
+    Route::get('/', [VoteController::class, 'index']);
 });
 
-Route::prefix('/comment/')->group(function () {
+Route::prefix('/comments/')->group(function () {
     Route::get('{comment}', [CommentController::class, 'show']);
     Route::post('/', [CommentController::class, 'store']);
-    Route::put('{comment}/update', [CommentController::class, 'update']);
-    Route::delete('{comment}/delete', [CommentController::class, 'destroy']);
-    Route::get('{comment}/list', [CommentController::class, 'index']);
+    Route::put('{comment}', [CommentController::class, 'update']);
+    Route::delete('{comment}', [CommentController::class, 'destroy']);
+    Route::get('/', [CommentController::class, 'index']);
 });
 
-Route::prefix('/idea/')->group(function () {
+Route::prefix('/ideas/')->group(function () {
     Route::get('{idea}', [IdeaController::class, 'show']);
     Route::post('/', [IdeaController::class, 'store']);
-    Route::put('{idea}/update', [IdeaController::class, 'update']);
-    Route::delete('{idea}/delete', [IdeaController::class, 'destroy']);
-    Route::get('{idea}/list', [IdeaController::class, 'index']);
+    Route::put('{idea}', [IdeaController::class, 'update']);
+    Route::delete('{idea}', [IdeaController::class, 'destroy']);
+    Route::get('/', [IdeaController::class, 'index']);
 });
 
-Route::prefix('/category/')->group(function () {
+Route::prefix('/categories/')->group(function () {
     Route::get('{category}', [CategoryController::class, 'show']);
     Route::post('/', [CategoryController::class, 'store']);
-    Route::put('{category}/update', [CategoryController::class, 'update']);
-    Route::delete('{category}/delete', [CategoryController::class, 'destroy']);
-    Route::get('{category}/list', [CategoryController::class, 'index']);
+    Route::put('{category}', [CategoryController::class, 'update']);
+    Route::delete('{category}', [CategoryController::class, 'destroy']);
+    Route::get('/', [CategoryController::class, 'index']);
 });
 
 Route::get('/hello/', function () {
