@@ -41,6 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('/status', StatusController::class)
         ->only(['index', 'store', 'update', 'destroy']);
 
+    Route::patch('/users/{user}/photo', [UserController::class, 'photo']);
     Route::get('/users/{user}', [UserController::class, 'show']);
     Route::put('/users/{user}', [UserController::class, 'update']);
     Route::delete('/users/{user}', [UserController::class, 'delete']);
