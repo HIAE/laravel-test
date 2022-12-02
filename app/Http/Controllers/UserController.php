@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -85,7 +86,10 @@ class UserController extends Controller
                 'email',
                 'ends_with:@company.com',
             ],
-            'password' => 'required|min:8',
+            'password' => [
+                'required',
+                Password::min(8)->uncompromised(),
+            ],
         ]);
     }
 }
