@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Idea;
 use App\Models\Vote;
+use App\Services\VoteService;
 use Illuminate\Http\Request;
 
 class VoteController extends Controller
 {
+    protected $service;
+
+    public function __construct(VoteService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * @lrd:start
      * Vote for an idea
@@ -15,9 +23,7 @@ class VoteController extends Controller
      */
     public function store(Request $request, Idea $idea)
     {
-        $alreadyVoted = $idea->votes()
-            ->where('user_id', '=', $request->user()->id)
-            ->exists();
+        $alreadyVoted = $this->service->checkIfUserVotedOnIdea($request->user(), $idea);
 
         if ($alreadyVoted) {
             return response([
@@ -25,9 +31,7 @@ class VoteController extends Controller
             ], 400);
         }
 
-        $idea->votes()->create([
-            'user_id' => $request->user()->id,
-        ]);
+        $this->service->createVote($request->user(), $idea);
 
         return ['message' => 'Voto realizado com sucesso'];
     }
@@ -41,7 +45,7 @@ class VoteController extends Controller
     {
         $this->authorize('delete', $vote);
 
-        $vote->delete();
+        $this->service->destroyVote($vote);
 
         return ['message' => 'Voto removido com sucesso'];
     }
