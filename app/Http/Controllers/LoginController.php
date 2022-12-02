@@ -31,7 +31,7 @@ class LoginController extends Controller
                 ->header('Content-Type', 'text/plain');
         }
 
-        $token = $this->userService->createApiToken();
+        $token = $this->userService->createApiToken($request->user());
 
         return ['token' => $token->plainTextToken];
     }
