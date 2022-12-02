@@ -10,12 +10,19 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
+    private $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = User::factory()->create();
+    }
+
     public function test_user_can_login()
     {
-        $user = User::factory()->create();
-
         $response = $this->postJson('/api/login', [
-            'email' => $user->email,
+            'email' => $this->user->email,
             'password' => 'password',
         ]);
 
@@ -27,10 +34,8 @@ class LoginTest extends TestCase
 
     public function test_login_message_for_incorrect_login()
     {
-        $user = User::factory()->create();
-
         $response = $this->postJson('/api/login', [
-            'email' => $user->email,
+            'email' => $this->user->email,
             'password' => 'incorrect',
         ]);
 
@@ -42,8 +47,6 @@ class LoginTest extends TestCase
 
     public function test_login_message_for_missing_email()
     {
-        $user = User::factory()->create();
-
         $response = $this->postJson('/api/login', [
             'email' => '',
             'password' => 'password',
@@ -57,10 +60,8 @@ class LoginTest extends TestCase
 
     public function test_login_message_for_missing_password()
     {
-        $user = User::factory()->create();
-
         $response = $this->postJson('/api/login', [
-            'email' => $user->email,
+            'email' => $this->user->email,
             'password' => '',
         ]);
 

@@ -14,9 +14,18 @@ class IdeaTest extends TestCase
 
     protected $seed = true;
 
+    private $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = User::factory()->create();
+    }
+
     public function test_can_view_ideas()
     {
-        Sanctum::actingAs(User::factory()->create());
+        Sanctum::actingAs($this->user);
 
         $response = $this->getJson('/api/ideas');
 
@@ -31,7 +40,7 @@ class IdeaTest extends TestCase
 
     public function test_users_can_create_ideas()
     {
-        Sanctum::actingAs(User::factory()->create());
+        Sanctum::actingAs($this->user);
 
         $category = Category::where('name', '=', 'TI')->first();
 

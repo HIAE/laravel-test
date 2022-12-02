@@ -14,9 +14,20 @@ class StatusTest extends TestCase
 
     protected $seed = true;
 
+    private $user;
+    private $admin;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = User::factory()->create();
+        $this->admin = User::factory()->admin()->create();
+    }
+
     public function test_can_list_status()
     {
-        Sanctum::actingAs(User::factory()->create());
+        Sanctum::actingAs($this->user);
 
         $response = $this->getJson('/api/status');
 
@@ -31,7 +42,7 @@ class StatusTest extends TestCase
 
     public function test_admins_can_create_status()
     {
-        Sanctum::actingAs(User::factory()->admin()->create());
+        Sanctum::actingAs($this->admin);
 
         $status_count = Status::count();
 
@@ -53,7 +64,7 @@ class StatusTest extends TestCase
 
     public function test_users_cannot_create_status()
     {
-        Sanctum::actingAs(User::factory()->create());
+        Sanctum::actingAs($this->user);
 
         $response = $this->postJson('/api/status', [
             'name' => 'Outro status',
@@ -68,7 +79,7 @@ class StatusTest extends TestCase
 
     public function test_admins_can_edit_status()
     {
-        Sanctum::actingAs(User::factory()->admin()->create());
+        Sanctum::actingAs($this->admin);
 
         $status = Status::factory()->create();
 
@@ -89,7 +100,7 @@ class StatusTest extends TestCase
 
     public function test_users_cannot_edit_status()
     {
-        Sanctum::actingAs(User::factory()->create());
+        Sanctum::actingAs($this->user);
 
         $status = Status::factory()->create();
 
@@ -106,7 +117,7 @@ class StatusTest extends TestCase
 
     public function test_admins_can_delete_status()
     {
-        Sanctum::actingAs(User::factory()->admin()->create());
+        Sanctum::actingAs($this->admin);
 
         $status = Status::factory()->create();
 
@@ -129,7 +140,7 @@ class StatusTest extends TestCase
 
     public function test_users_cannot_delete_status()
     {
-        Sanctum::actingAs(User::factory()->create());
+        Sanctum::actingAs($this->user);
 
         $status = Status::factory()->create();
 

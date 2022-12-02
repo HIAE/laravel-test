@@ -14,9 +14,20 @@ class CategoryTest extends TestCase
 
     protected $seed = true;
 
+    private $user;
+    private $admin;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = User::factory()->create();
+        $this->admin = User::factory()->admin()->create();
+    }
+
     public function test_can_view_categories()
     {
-        Sanctum::actingAs(User::factory()->create());
+        Sanctum::actingAs($this->user);
 
         $response = $this->getJson('/api/categories');
 
@@ -31,7 +42,7 @@ class CategoryTest extends TestCase
 
     public function test_can_create_category()
     {
-        Sanctum::actingAs(User::factory()->create());
+        Sanctum::actingAs($this->user);
 
         $category_name = 'Nova Categoria';
 
@@ -51,7 +62,7 @@ class CategoryTest extends TestCase
 
     public function test_admins_can_edit_category()
     {
-        Sanctum::actingAs(User::factory()->admin()->create());
+        Sanctum::actingAs($this->admin);
 
         $category = Category::first();
 
@@ -79,7 +90,7 @@ class CategoryTest extends TestCase
 
     public function test_users_cannot_update_categories()
     {
-        Sanctum::actingAs(User::factory()->create());
+        Sanctum::actingAs($this->user);
 
         $category = Category::first();
 
@@ -96,7 +107,7 @@ class CategoryTest extends TestCase
 
     public function test_admins_can_remove_category()
     {
-        Sanctum::actingAs(User::factory()->admin()->create());
+        Sanctum::actingAs($this->admin);
 
         $category = Category::first();
 
@@ -111,7 +122,7 @@ class CategoryTest extends TestCase
 
     public function test_users_cannot_remove_categories()
     {
-        Sanctum::actingAs(User::factory()->create());
+        Sanctum::actingAs($this->user);
 
         $category = Category::first();
 

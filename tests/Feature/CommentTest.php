@@ -15,9 +15,18 @@ class CommentTest extends TestCase
 
     protected $seed = true;
 
+    private $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = User::factory()->create();
+    }
+
     public function test_can_list_comments()
     {
-        Sanctum::actingAs(User::factory()->create());
+        Sanctum::actingAs($this->user);
 
         $idea = Idea::factory()->create();
 
@@ -38,7 +47,7 @@ class CommentTest extends TestCase
 
     public function test_can_comment_an_idea()
     {
-        Sanctum::actingAs(User::factory()->create());
+        Sanctum::actingAs($this->user);
 
         $idea = Idea::factory()->create();
 
@@ -59,7 +68,7 @@ class CommentTest extends TestCase
 
     public function test_user_cannot_update_comments_from_others()
     {
-        Sanctum::actingAs(User::factory()->create());
+        Sanctum::actingAs($this->user);
 
         $comment = Comment::factory()->create();
 
@@ -72,12 +81,10 @@ class CommentTest extends TestCase
 
     public function test_user_can_update_own_comment()
     {
-        $user = User::factory()->create();
-
-        Sanctum::actingAs($user);
+        Sanctum::actingAs($this->user);
 
         $comment = Comment::factory()->create([
-            'user_id' => $user->id,
+            'user_id' => $this->user->id,
         ]);
 
         $response = $this->putJson("/api/ideas/{$comment->idea_id}/comments/{$comment->id}", [
@@ -93,7 +100,7 @@ class CommentTest extends TestCase
 
     public function test_user_cannot_remove_comments_from_others()
     {
-        Sanctum::actingAs(User::factory()->create());
+        Sanctum::actingAs($this->user);
 
         $comment = Comment::factory()->create();
 
@@ -104,12 +111,10 @@ class CommentTest extends TestCase
 
     public function test_user_can_remove_own_comment()
     {
-        $user = User::factory()->create();
-
-        Sanctum::actingAs($user);
+        Sanctum::actingAs($this->user);
 
         $comment = Comment::factory()->create([
-            'user_id' => $user->id,
+            'user_id' => $this->user->id,
         ]);
 
         $response = $this->deleteJson("/api/ideas/{$comment->idea_id}/comments/{$comment->id}");

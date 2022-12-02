@@ -15,9 +15,18 @@ class VoteTest extends TestCase
 
     protected $seed = true;
 
+    private $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = User::factory()->create();
+    }
+
     public function test_user_can_vote_an_idea()
     {
-        Sanctum::actingAs(User::factory()->create());
+        Sanctum::actingAs($this->user);
 
         $idea = Idea::factory()->create();
 
@@ -44,7 +53,7 @@ class VoteTest extends TestCase
 
     public function test_user_cannot_delete_votes_from_others()
     {
-        Sanctum::actingAs(User::factory()->create());
+        Sanctum::actingAs($this->user);
 
         $vote = Vote::factory()->create();
 
@@ -56,12 +65,10 @@ class VoteTest extends TestCase
 
     public function test_user_can_delete_own_votes()
     {
-        $user = User::factory()->create();
-
-        Sanctum::actingAs($user);
+        Sanctum::actingAs($this->user);
 
         $vote = Vote::factory()->create([
-            'user_id' => $user->id,
+            'user_id' => $this->user->id,
         ]);
 
         $response = $this->deleteJson("/api/ideas/{$vote->idea_id}/votes/{$vote->id}");
