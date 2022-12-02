@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
-use Illuminate\Http\Request;
+use App\Services\CategoryService;
 
 class CategoryController extends Controller
 {
+    protected $service;
+
+    public function __construct(CategoryService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * @lrd:start
      * List categories.
@@ -14,7 +22,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return Category::paginate();
+        return $this->service->getAllCategories();
     }
 
     /**
@@ -24,17 +32,9 @@ class CategoryController extends Controller
      *
      * @QAparam name string required max:255
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $request->validate([
-            'name' => 'required|max:255|unique:categories',
-        ]);
-
-        $category = new Category();
-
-        $category->name = $request->name;
-
-        $category->save();
+        $category = $this->service->createCategory($request);
 
         return ['message' => "A categoria {$category->name} foi criada com sucesso."];
     }
@@ -46,17 +46,11 @@ class CategoryController extends Controller
      *
      * @QAparam name string required max:255
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
         $this->authorize('update', $category);
 
-        $request->validate([
-            'name' => 'required|max:255',
-        ]);
-
-        $category->name = $request->name;
-
-        $category->save();
+        $this->service->updateCategory($category, $request);
 
         return ['message' => "O nome da categoria foi alterado para {$category->name}."];
     }
@@ -70,7 +64,7 @@ class CategoryController extends Controller
     {
         $this->authorize('destroy', $category);
 
-        $category->delete();
+        $this->service->destroyCategory($category);
 
         return ['message' => "A categoria {$category->name} foi removida."];
     }
