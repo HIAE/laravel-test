@@ -23,12 +23,9 @@ class CategoryTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJsonStructure([
-                'current_page',
                 'data',
-                'last_page',
                 'links',
-                'per_page',
-                'total',
+                'meta',
             ]);
     }
 
