@@ -1,5 +1,11 @@
 # hiae-laravel-test
 
+### Pontos para melhorias
+- Usar UUID no lugar de ID nas rotas
+- Confirmar e-mail no cadastro de novos usuários
+- Mover domínio da empresa permitido para novos cadastros no .env/config
+- Melhorar traduções pt-br ou usar somente en
+
 ### Seja muuuuuito bem vindo(a) ao teste para desenvolvedor Laravel.
 
 Gostamos de código;  
