@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use App\Services\UserService;
 
 class UserController extends Controller
 {
+    protected $service;
+
+    public function __construct(UserService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * @lrd:start
      * List users. Only for admins.
@@ -16,7 +24,7 @@ class UserController extends Controller
     {
         $this->authorize('viewAny', User::class);
 
-        return User::paginate();
+        return $this->service->getAllUsers();
     }
 
     /**
@@ -28,7 +36,7 @@ class UserController extends Controller
     {
         $this->authorize('view', $user);
 
-        return $user;
+        return $this->service->showUser($user);
     }
 
     /**
@@ -38,9 +46,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $user = User::create($request->validated());
-
-        $token = $user->createToken('api_token');
+        $token = $this->service->createUser($request);
 
         return ['token' => $token->plainTextToken];
     }
@@ -54,7 +60,7 @@ class UserController extends Controller
     {
         $this->authorize('update', $user);
 
-        $user->update($request->validated());
+        $this->service->updateUser($user, $request);
 
         return ['message' => "O usuário #{$user->id} foi atualizado com sucesso."];
     }
@@ -66,10 +72,8 @@ class UserController extends Controller
      */
     public function delete(User $user)
     {
-        $message = "O usuário #{$user->id} foi removido com sucesso.";
+        $this->service->destroyUser($user);
 
-        $user->delete();
-
-        return ['message' => $message];
+        return ['message' => "O usuário #{$user->id} foi removido com sucesso."];
     }
 }
