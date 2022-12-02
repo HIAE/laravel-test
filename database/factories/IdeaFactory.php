@@ -22,6 +22,7 @@ class IdeaFactory extends Factory
         return [
             'uuid' => (string) Str::uuid(),
             'idea' => fake()->text,
+            'key_word' => fake()->regexify('[a-z]{20}'),
             'user_id' => User::factory(),
             'category_id' => Category::factory(),
             'created_at' => date('Y-m-d H:i:s'),
