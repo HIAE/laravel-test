@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use App\Rules\Cpf;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
 class UserRequest extends FormRequest

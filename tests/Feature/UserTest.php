@@ -23,7 +23,7 @@ class UserTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJsonStructure([
-                'token'
+                'token',
             ]);
     }
 }
