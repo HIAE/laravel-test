@@ -28,6 +28,7 @@ class StoreRequest extends FormRequest
             'uuid' => 'required|uuid',
             'name' => 'required|string|max:255',
             'email' => 'required|email:rfc',
+            'cpf' => 'required|string|min:11|max:11',
             'password' => ['sometimes', 'required', 'confirmed', Password::min(8)]
         ];
     }
@@ -43,6 +44,7 @@ class StoreRequest extends FormRequest
             'uuid' => 'uuid',
             'name' => 'nome',
             'email' => 'email',
+            'cpf' => 'cpf',
             'password' => 'senha',
         ];
     }

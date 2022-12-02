@@ -19,6 +19,7 @@ class UserResource extends JsonResource
             'id' => $this->uuid,
             'name' => $this->name,
             'email' => $this->email,
+            'cpf' => $this->cpf,
             'groups' => (new GroupCollection($this->groups)),
         ];
     }
