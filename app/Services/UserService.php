@@ -2,7 +2,8 @@
 
 namespace App\Services;
 
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 
@@ -15,7 +16,7 @@ class UserService
         return $user->createToken($token_name);
     }
 
-    public function createUser(UserRequest $request)
+    public function createUser(UserStoreRequest $request)
     {
         $user = User::create($request->validated());
 
@@ -37,8 +38,19 @@ class UserService
         return new UserResource($user);
     }
 
-    public function updateUser(User $user, UserRequest $request): bool
+    public function updateUser(User $user, UserUpdateRequest $request): bool
     {
-        return $user->update($request->validated());
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        if ($request->cpf) {
+            $user->cpf = $request->cpf;
+        }
+
+        if ($request->password) {
+            $user->password = $request->password;
+        }
+
+        return $user->save();
     }
 }
