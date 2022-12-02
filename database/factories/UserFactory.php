@@ -20,6 +20,7 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'cpf' => '000.000.000-00',
             'email_verified_at' => now(),
             'password' => 'password',
             'is_admin' => false,
