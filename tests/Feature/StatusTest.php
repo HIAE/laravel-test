@@ -31,9 +31,7 @@ class StatusTest extends TestCase
 
     public function test_admins_can_create_status()
     {
-        Sanctum::actingAs(User::factory()->create([
-            'is_admin' => true,
-        ]));
+        Sanctum::actingAs(User::factory()->admin()->create());
 
         $status_count = Status::count();
 
@@ -70,9 +68,7 @@ class StatusTest extends TestCase
 
     public function test_admins_can_edit_status()
     {
-        Sanctum::actingAs(User::factory()->create([
-            'is_admin' => true,
-        ]));
+        Sanctum::actingAs(User::factory()->admin()->create());
 
         $status = Status::factory()->create();
 
@@ -110,9 +106,7 @@ class StatusTest extends TestCase
 
     public function test_admins_can_delete_status()
     {
-        Sanctum::actingAs(User::factory()->create([
-            'is_admin' => true,
-        ]));
+        Sanctum::actingAs(User::factory()->admin()->create());
 
         $status = Status::factory()->create();
 

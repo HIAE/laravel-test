@@ -51,9 +51,7 @@ class CategoryTest extends TestCase
 
     public function test_admins_can_edit_category()
     {
-        Sanctum::actingAs(User::factory()->create([
-            'is_admin' => true,
-        ]));
+        Sanctum::actingAs(User::factory()->admin()->create());
 
         $category = Category::first();
 
@@ -98,9 +96,7 @@ class CategoryTest extends TestCase
 
     public function test_admins_can_remove_category()
     {
-        Sanctum::actingAs(User::factory()->create([
-            'is_admin' => true,
-        ]));
+        Sanctum::actingAs(User::factory()->admin()->create());
 
         $category = Category::first();
 
