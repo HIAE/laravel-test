@@ -26,4 +26,20 @@ class UserTest extends TestCase
                 'token',
             ]);
     }
+
+    public function test_message_for_invalid_cpf()
+    {
+        $response = $this->postJson('/api/users', [
+            'name' => 'Nome',
+            'email' => 'email@company.com',
+            'cpf' => '000.000.000-00',
+            'password' => 'password-not-leaked',
+        ]);
+
+        $response
+            ->assertStatus(422)
+            ->assertJson([
+                'message' => 'O CPF deve ser válido.',
+            ]);
+    }
 }
