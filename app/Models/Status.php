@@ -11,5 +11,8 @@ class Status extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'number',
+        'name',
+    ];
 }
