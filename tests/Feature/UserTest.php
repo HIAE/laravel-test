@@ -128,7 +128,7 @@ class UserTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                'message' => "O usuário #{$this->user->id} foi atualizado com sucesso."
+                'message' => "O usuário #{$this->user->id} foi atualizado com sucesso.",
             ]);
 
         $this->assertDatabaseHas('users', [
@@ -164,7 +164,7 @@ class UserTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                'message' => "O usuário #{$this->user->id} foi atualizado com sucesso."
+                'message' => "O usuário #{$this->user->id} foi atualizado com sucesso.",
             ]);
 
         $this->assertDatabaseHas('users', [
@@ -182,7 +182,7 @@ class UserTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                'message' => "O usuário #{$this->user->id} foi removido com sucesso."
+                'message' => "O usuário #{$this->user->id} foi removido com sucesso.",
             ]);
 
         $this->user->refresh();
@@ -213,7 +213,7 @@ class UserTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                'message' => "O usuário #{$this->user->id} foi removido com sucesso."
+                'message' => "O usuário #{$this->user->id} foi removido com sucesso.",
             ]);
 
         $this->user->refresh();
