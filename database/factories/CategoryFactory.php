@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enum\CategoryEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -17,9 +18,11 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
+        $cases = collect(\App\Enum\CategoryEnum::cases());
+
         return [
             'uuid' => (string) Str::uuid(),
-            'category' => fake()->colorName,
+            'category' => $cases->random()->value,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
             'deleted_at' => null,
