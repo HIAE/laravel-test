@@ -30,10 +30,9 @@ class CommentTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJsonStructure([
-                'current_page',
                 'data',
                 'links',
-                'total',
+                'meta',
             ]);
     }
 
