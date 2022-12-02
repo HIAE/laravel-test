@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\IdeaRequest;
 use App\Models\Idea;
 use Illuminate\Http\Request;
 
@@ -71,19 +72,9 @@ class IdeaController extends Controller
      * @lrd:start
      * Create an idea.
      * @lrd:end
-     *
-     * @QAparam title string required max:255
-     * @QAparam description string required
-     * @QAparam categoryId integer required exists:categories,id
      */
-    public function store(Request $request)
+    public function store(IdeaRequest $request)
     {
-        $request->validate([
-            'categoryId' => 'required|exists:categories,id',
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-        ]);
-
         $idea = new Idea();
 
         $idea->title = $request->title;
@@ -100,20 +91,10 @@ class IdeaController extends Controller
      * @lrd:start
      * Update an idea.
      * @lrd:end
-     *
-     * @QAparam title string required max:255
-     * @QAparam description string required
-     * @QAparam categoryId integer required exists:categories,id
      */
-    public function update(Request $request, Idea $idea)
+    public function update(IdeaRequest $request, Idea $idea)
     {
         $this->authorize('update', $idea);
-
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'categoryId' => 'required|exists:categories,id',
-        ]);
 
         $idea->title = $request->title;
         $idea->description = $request->description;
