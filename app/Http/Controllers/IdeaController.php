@@ -12,8 +12,9 @@ class IdeaController extends Controller
      * List ideas
      * @lrd:end
      *
-     * @QAparam status int nullable
-     * @QAparam category int nullable
+     * @QAparam status integer nullable
+     * @QAparam category integer nullable
+     * @QAparam q string nullable
      */
     public function index(Request $request)
     {
