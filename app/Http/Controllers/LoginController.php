@@ -3,10 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Services\UserService;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserService $service)
+    {
+        $this->userService = $service;
+    }
+
     /**
      * @lrd:start
      * Login user, create and return API token
@@ -23,9 +31,7 @@ class LoginController extends Controller
                 ->header('Content-Type', 'text/plain');
         }
 
-        $request->user()->tokens()->delete();
-
-        $token = $request->user()->createToken('api_token');
+        $token = $this->userService->createApiToken();
 
         return ['token' => $token->plainTextToken];
     }
