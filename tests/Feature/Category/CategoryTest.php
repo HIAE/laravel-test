@@ -33,7 +33,13 @@ test('create category', function () {
 test('update category', function () {
     // Arrange
     $category = CategoryModel::factory()->create();
-    $data = ['category' => fake()->word];
+    $case = collect(\App\Enum\CategoryEnum::cases())->random();
+
+    while ($category->category->value === $case->value) {
+        $case = collect(\App\Enum\CategoryEnum::cases())->random();
+    }
+
+    $data = ['category' => $case->value];
 
     // Act
     $response = $this->putJson("/api/v1/categories/$category->uuid", $data);
@@ -56,7 +62,7 @@ test('show category', function () {
     // Assert
     expect($response->json('data'))
         ->id->toBe($category->uuid)
-        ->category->toBe($category->category);
+        ->category->toBe($category->category->value);
 });
 
 test('list category', function () {
