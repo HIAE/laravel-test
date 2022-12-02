@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
-use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -36,11 +36,9 @@ class UserController extends Controller
      * User registration restrict to company's domain.
      * @lrd:end
      */
-    public function store()
+    public function store(UserRequest $request)
     {
-        $validated = $this->validateFormData();
-
-        $user = User::create($validated);
+        $user = User::create($request->validated());
 
         $token = $user->createToken('api_token');
 
@@ -52,13 +50,11 @@ class UserController extends Controller
      * Update users. Admins can update everyone, others only themselves.
      * @lrd:end
      */
-    public function update(User $user)
+    public function update(UserRequest $request, User $user)
     {
         $this->authorize('update', $user);
 
-        $validated = $this->validateFormData();
-
-        $user->update($validated);
+        $user->update($request->validated());
 
         return ['message' => "O usuário #{$user->id} foi atualizado com sucesso."];
     }
@@ -75,21 +71,5 @@ class UserController extends Controller
         $user->delete();
 
         return ['message' => $message];
-    }
-
-    private function validateFormData(): array
-    {
-        return request()->validate([
-            'name' => 'required',
-            'email' => [
-                'required',
-                'email',
-                'ends_with:@company.com',
-            ],
-            'password' => [
-                'required',
-                Password::min(8)->uncompromised(),
-            ],
-        ]);
     }
 }
