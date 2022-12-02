@@ -18,11 +18,11 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
-        $cases = collect(\App\Enum\CategoryEnum::cases());
+        $case = collect(\App\Enum\CategoryEnum::cases())->random();
 
         return [
             'uuid' => (string) Str::uuid(),
-            'category' => $cases->random()->value,
+            'category' => $case->value,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
             'deleted_at' => null,
