@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\CategoryEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,6 +11,10 @@ class Category extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    protected $casts = [
+        'category' => CategoryEnum::class
+    ];
 
     /**
      * The attributes that are mass assignable.
