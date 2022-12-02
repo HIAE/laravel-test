@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserPhotoRequest;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
@@ -78,5 +79,19 @@ class UserController extends Controller
         $this->service->destroyUser($user);
 
         return ['message' => "O usuário #{$user->id} foi removido com sucesso."];
+    }
+
+    /**
+     * @lrd:start
+     * Change user photo.
+     * @lrd:end
+     */
+    public function photo(UserPhotoRequest $request, User $user)
+    {
+        $this->authorize('update', $user);
+
+        $this->service->updatePhoto($user, $request);
+
+        return ['message' => 'A imagem foi atualizada com sucesso.'];
     }
 }
