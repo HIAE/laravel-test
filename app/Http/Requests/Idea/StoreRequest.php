@@ -26,6 +26,7 @@ class StoreRequest extends FormRequest
         return [
             'uuid' => 'required|uuid',
             'idea' => 'required|string|max:255',
+            'key_word' => 'required|string|max:20',
             'user_id' => 'required|exists:users,uuid',
             'category_id' => 'required|exists:categories,uuid',
         ];
@@ -43,6 +44,7 @@ class StoreRequest extends FormRequest
             'idea' => 'idea',
             'user_id' => 'id do usuário',
             'category_id' => 'id da categoria',
+            'key_word' => 'palavra chave',
         ];
     }
 }

@@ -25,6 +25,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'idea' => 'required|string|max:255',
+            'key_word' => 'sometimes|required|string|max:20',
         ];
     }
 
@@ -37,6 +38,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'idea' => 'idea',
+            'key_word' => 'palavra chave',
         ];
     }
 }
