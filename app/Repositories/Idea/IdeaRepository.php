@@ -64,4 +64,17 @@ class IdeaRepository implements IdeaRepositoryInterface
             return $idea->delete();
         });
     }
+
+    /**
+     * Search by key word.
+     *
+     * @param  string $keyWord
+     * @return mixed
+     */
+    public function searchByKeyWord(string $keyWord)
+    {
+        return DB::transaction(function () use ($keyWord) {
+            return IdeaModel::where('key_word', $keyWord)->first();
+        });
+    }
 }
