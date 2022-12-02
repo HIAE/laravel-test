@@ -3,13 +3,14 @@
 namespace App\Services;
 
 use App\Http\Requests\CategoryRequest;
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 
 class CategoryService
 {
     public function getAllCategories()
     {
-        return Category::paginate();
+        return CategoryResource::collection(Category::paginate());
     }
 
     public function createCategory(CategoryRequest $request): Category
