@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
 use App\Models\Idea;
-use Illuminate\Http\Request;
+use App\Services\CommentService;
 
 class CommentController extends Controller
 {
+    protected $service;
+
+    public function __construct(CommentService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * @lrd:start
      * Show comments of an idea.
@@ -15,25 +23,17 @@ class CommentController extends Controller
      */
     public function index(Idea $idea)
     {
-        return $idea->comments()
-            ->paginate();
+        return $this->service->getAllComments($idea);
     }
 
     /**
      * @lrd:start
      * Create a comment.
      * @lrd:end
-     *
-     * @QAparam body string required
      */
-    public function store(Request $request, Idea $idea)
+    public function store(CommentRequest $request, Idea $idea)
     {
-        $this->validateRequest($request);
-
-        $idea->comments()->create([
-            'user_id' => $request->user()->id,
-            'body' => $request->body,
-        ]);
+        $this->service->createComment($idea, $request);
 
         return ['message' => 'Comentário criado com sucesso'];
     }
@@ -42,18 +42,12 @@ class CommentController extends Controller
      * @lrd:start
      * Update a comment.
      * @lrd:end
-     *
-     * @QAparam body string required
      */
-    public function update(Request $request, Idea $idea, Comment $comment)
+    public function update(CommentRequest $request, Idea $idea, Comment $comment)
     {
         $this->authorize('update', $comment);
 
-        $this->validateRequest($request);
-
-        $comment->body = $request->body;
-
-        $comment->save();
+        $this->service->updateComment($comment, $request);
 
         return ['message' => 'Comentário atualizado com sucesso'];
     }
@@ -67,15 +61,8 @@ class CommentController extends Controller
     {
         $this->authorize('delete', $comment);
 
-        $comment->delete();
+        $this->service->destroyComment($comment);
 
         return ['message' => 'Comentário removido com sucesso'];
-    }
-
-    private function validateRequest(Request $request)
-    {
-        $request->validate([
-            'body' => 'required|string',
-        ]);
     }
 }
