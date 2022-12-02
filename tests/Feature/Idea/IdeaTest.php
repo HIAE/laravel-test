@@ -81,3 +81,16 @@ test('list idea', function () {
         ->not->toBeEmpty()
         ->toHaveCount($idea->count());
 });
+
+test('search by key word', function () {
+    // Arrange
+    $idea = IdeaModel::factory()->count(5)->create();
+    $keyWord['key_word'] = $idea->random()->key_word;
+
+    // Act
+    $response = $this->postJson(route('idea.key_word', $keyWord));
+
+    // Assert
+    $response->assertOK();
+    expect($keyWord['key_word'])->match('key_word', $response->json());
+});
