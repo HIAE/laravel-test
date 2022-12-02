@@ -16,7 +16,7 @@ class Idea extends Model
      *
      * @var array
      */
-    protected $fillable = ['uuid', 'idea'];
+    protected $fillable = ['uuid', 'idea', 'key_word'];
 
     /**
      * The attributes that should be mutated to dates.
