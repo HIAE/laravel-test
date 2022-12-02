@@ -72,6 +72,8 @@ class UserController extends Controller
      */
     public function delete(User $user)
     {
+        $this->authorize('delete', $user);
+
         $this->service->destroyUser($user);
 
         return ['message' => "O usuário #{$user->id} foi removido com sucesso."];
