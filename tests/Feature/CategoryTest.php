@@ -49,7 +49,7 @@ class CategoryTest extends TestCase
             ->assertDatabaseHas('categories', ['name' => $category_name]);
     }
 
-    public function test_can_edit_category()
+    public function test_admins_can_edit_category()
     {
         Sanctum::actingAs(User::factory()->create([
             'is_admin' => true,
@@ -96,7 +96,7 @@ class CategoryTest extends TestCase
             ]);
     }
 
-    public function test_can_remove_category()
+    public function test_admins_can_remove_category()
     {
         Sanctum::actingAs(User::factory()->create([
             'is_admin' => true,
