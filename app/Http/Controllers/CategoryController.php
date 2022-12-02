@@ -19,7 +19,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return new CategoryCollection(CategoryModel::all());
+        return new CategoryCollection(CategoryModel::paginate());
     }
 
     /**

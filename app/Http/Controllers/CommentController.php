@@ -18,7 +18,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        return new CommentCollection(CommentModel::all());
+        return new CommentCollection(CommentModel::paginate());
     }
 
     /**
