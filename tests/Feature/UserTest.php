@@ -4,7 +4,9 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Laravel\Sanctum\Sanctum;
+use Storage;
 use Tests\TestCase;
 
 class UserTest extends TestCase
@@ -223,5 +225,32 @@ class UserTest extends TestCase
                 'id' => $this->user->id,
             ])
             ->assertNotNull($this->user->deleted_at);
+    }
+
+    public function test_users_can_update_their_photo()
+    {
+        Sanctum::actingAs($this->user);
+
+        Storage::fake('photos');
+
+        $file = UploadedFile::fake()->image('photo.jpg');
+
+        $file_path = 'photos/'.$file->hashName();
+
+        $response = $this->patchJson("/api/users/{$this->user->id}/photo", [
+            'photo' => $file,
+        ]);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'message' => 'A imagem foi atualizada com sucesso.',
+            ]);
+
+        $this->user->refresh();
+
+        $this->assertEquals($file_path, $this->user->photo_path);
+
+        Storage::assertExists($file_path);
     }
 }
