@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Rafael Lotto',
             'email' => 'rafael@test.com',
+            'cpf' => '000.000.000-00',
             'password' => Hash::make('password'),
             'is_admin' => true,
         ]);
