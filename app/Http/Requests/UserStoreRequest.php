@@ -6,7 +6,7 @@ use App\Rules\Cpf;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
-class UserRequest extends FormRequest
+class UserStoreRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
