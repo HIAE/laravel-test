@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Idea\SearchRequest;
 use App\Http\Requests\Idea\StoreRequest;
 use App\Http\Requests\Idea\UpdateRequest;
 use App\Http\Resources\Idea\IdeaCollection;
@@ -84,6 +85,23 @@ class IdeaController extends Controller
 
         return $result ?
             response()->json(status: 204) :
+            response()->json(['error: Não foi possível excluir os dados.'], 500);
+    }
+
+    /**
+     * Search idea by key word.
+     *
+     * @param  SearchRequest  $request
+     * @param  IdeaRepository $repository
+     * @return Response
+     */
+    public function keyWord(SearchRequest $request, IdeaRepository $repository)
+    {
+        $dataValidated = $request->validated();
+        $result = $repository->searchByKeyWord($dataValidated['key_word']);
+
+        return $result ?
+            response()->json($result->toArray(), status: 200) :
             response()->json(['error: Não foi possível excluir os dados.'], 500);
     }
 }
