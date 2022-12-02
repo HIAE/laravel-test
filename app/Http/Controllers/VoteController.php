@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class VoteController extends Controller
 {
+    /**
+     * @lrd:start
+     * Vote for an idea
+     * @lrd:end
+     */
     public function store(Request $request, Idea $idea)
     {
         $alreadyVoted = $idea->votes()
@@ -27,6 +32,11 @@ class VoteController extends Controller
         return ['message' => 'Voto realizado com sucesso'];
     }
 
+    /**
+     * @lrd:start
+     * Remove vote for an idea
+     * @lrd:end
+     */
     public function destroy(Idea $idea, Vote $vote)
     {
         $this->authorize('delete', $vote);
