@@ -51,4 +51,10 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = Hash::make($value);
     }
+
+    // Functions
+    public function getMaskedCpf()
+    {
+        return preg_replace('/\.\d{3}/', '.***', $this->cpf);
+    }
 }
