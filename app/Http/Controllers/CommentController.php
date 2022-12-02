@@ -23,6 +23,8 @@ class CommentController extends Controller
      * @lrd:start
      * Create a comment.
      * @lrd:end
+     *
+     * @QAparam body string required
      */
     public function store(Request $request, Idea $idea)
     {
@@ -40,6 +42,8 @@ class CommentController extends Controller
      * @lrd:start
      * Update a comment.
      * @lrd:end
+     *
+     * @QAparam body string required
      */
     public function update(Request $request, Idea $idea, Comment $comment)
     {
