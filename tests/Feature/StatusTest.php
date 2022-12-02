@@ -15,6 +15,7 @@ class StatusTest extends TestCase
     protected $seed = true;
 
     private $user;
+
     private $admin;
 
     protected function setUp(): void

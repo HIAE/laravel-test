@@ -15,6 +15,7 @@ class CategoryTest extends TestCase
     protected $seed = true;
 
     private $user;
+
     private $admin;
 
     protected function setUp(): void
