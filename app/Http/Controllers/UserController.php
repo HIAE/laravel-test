@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use App\Services\UserService;
 
@@ -44,7 +45,7 @@ class UserController extends Controller
      * User registration restrict to company's domain.
      * @lrd:end
      */
-    public function store(UserRequest $request)
+    public function store(UserStoreRequest $request)
     {
         $token = $this->service->createUser($request);
 
@@ -56,7 +57,7 @@ class UserController extends Controller
      * Update users. Admins can update everyone, others only themselves.
      * @lrd:end
      */
-    public function update(UserRequest $request, User $user)
+    public function update(UserUpdateRequest $request, User $user)
     {
         $this->authorize('update', $user);
 
