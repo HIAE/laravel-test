@@ -57,4 +57,20 @@ class User extends Authenticatable
     {
         return preg_replace('/\.\d{3}/', '.***', $this->cpf);
     }
+
+    // Relationships
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function ideas()
+    {
+        return $this->hasMany(Idea::class);
+    }
+
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
+    }
 }
