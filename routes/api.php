@@ -54,6 +54,7 @@ Route::prefix('/comments/')->group(function () {
 Route::prefix('/ideas/')->group(function () {
     Route::get('{idea}', [IdeaController::class, 'show'])->name('idea.show');
     Route::post('/', [IdeaController::class, 'store'])->name('idea.store');
+    Route::post('/search_word', [IdeaController::class, 'keyWord'])->name('idea.key_word');
     Route::put('{idea}', [IdeaController::class, 'update'])->name('idea.update');
     Route::delete('{idea}', [IdeaController::class, 'destroy'])->name('idea.destroy');
     Route::get('/', [IdeaController::class, 'index'])->name('idea.index');
