@@ -22,8 +22,18 @@ class CategoryController extends Controller
         try {
             $result = $this->categoryService->create($request->validated());
             return response()->json($result, Response::HTTP_CREATED);
-        } catch (\Exception $err) {
+        } catch (\Exception|\Throwable $err) {
             return response()->json(['message' => CategoryMessageHelper::CREATE_CATEGORY_GENERAL_ERROR], Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function show(int $categoryId): JsonResponse
+    {
+        try {
+            $result = $this->categoryService->get($categoryId);
+            return response()->json($result, Response::HTTP_OK);
+        } catch (\Exception|\Throwable $err) {
+            return response()->json(['message' => CategoryMessageHelper::GET_CATEGORY_GENERAL_ERROR], Response::HTTP_BAD_REQUEST);
         }
 
     }

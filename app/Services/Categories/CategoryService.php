@@ -4,6 +4,7 @@ namespace App\Services\Categories;
 
 use App\Repositories\CategoryRepository;
 use Illuminate\Database\Eloquent\Model;
+use Throwable;
 
 class CategoryService
 {
@@ -14,9 +15,26 @@ class CategoryService
         $this->categoryRepository = $categoryRepository;
     }
 
+    /**
+     * @throws Throwable
+     */
     public function create(array $data): Model
     {
-        return $this->categoryRepository->create($data);
+        $model = $this->categoryRepository->create($data);
+        throw_if(!$model, \Exception::class);
+
+        return $model;
+    }
+
+    /**
+     * @throws Throwable
+     */
+    public function get(int $identifier): Model
+    {
+        $model = $this->categoryRepository->findOne($identifier);
+        throw_if(!$model, \Exception::class);
+
+        return $model;
     }
 
 }
