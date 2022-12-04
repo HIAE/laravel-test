@@ -16,6 +16,10 @@ class AuthScopes
     const SCOPE_IDEA_UPDATE_STATUS = 'idea:change';
     const SCOPE_IDEA_DELETE = 'idea:delete';
     const SCOPE_IDEA_LIST = 'idea:list';
+    const SCOPE_COMMENT_SHOW = 'comment:show';
+    const SCOPE_COMMENT_CREATE = 'comment:create';
+    const SCOPE_COMMENT_DELETE = 'comment:delete';
+    const SCOPE_COMMENT_LIST = 'comment:list';
 
 
     const ADMIN_SCOPE = [
@@ -31,6 +35,10 @@ class AuthScopes
         self::SCOPE_IDEA_UPDATE_STATUS,
         self::SCOPE_IDEA_DELETE,
         self::SCOPE_IDEA_LIST,
+        self::SCOPE_COMMENT_SHOW,
+        self::SCOPE_COMMENT_CREATE,
+        self::SCOPE_COMMENT_DELETE,
+        self::SCOPE_COMMENT_LIST,
     ];
 
     const EMPLOYER_SCOPE = [
@@ -41,6 +49,10 @@ class AuthScopes
         self::SCOPE_IDEA_UPDATE,
         self::SCOPE_IDEA_DELETE,
         self::SCOPE_IDEA_LIST,
+        self::SCOPE_COMMENT_SHOW,
+        self::SCOPE_COMMENT_CREATE,
+        self::SCOPE_COMMENT_DELETE,
+        self::SCOPE_COMMENT_LIST,
     ];
 
     public static function getEmployerScopesToAbilities(): array
@@ -52,6 +64,4 @@ class AuthScopes
     {
         return self::ADMIN_SCOPE;
     }
-
-
 }

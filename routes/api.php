@@ -3,6 +3,7 @@
 use App\Helpers\AuthScopes;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\IdeaController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,10 @@ Route::middleware('auth:sanctum')->prefix('/ideas')->group(function () {
     Route::put('{ideaId}', [IdeaController::class, 'update'])->middleware(['ability:'. AuthScopes::SCOPE_IDEA_UPDATE]);
     Route::delete('{ideaId}', [IdeaController::class, 'delete'])->middleware(['ability:'. AuthScopes::SCOPE_IDEA_DELETE]);
     Route::get('/', [IdeaController::class, 'list'])->middleware(['ability:'. AuthScopes::SCOPE_IDEA_LIST]);
+
+    Route::get('{ideaId}/comments/{commentId}', [CommentController::class, 'show'])->middleware(['ability:'. AuthScopes::SCOPE_COMMENT_SHOW]);
+    Route::post('{ideaId}/comments/', [CommentController::class, 'create'])->middleware(['ability:'. AuthScopes::SCOPE_COMMENT_CREATE]);
+    Route::get('{ideaId}/comments', [CommentController::class, 'list'])->middleware(['ability:'. AuthScopes::SCOPE_COMMENT_LIST]);
 });
 
 Route::prefix('/auth')->group(function () {
