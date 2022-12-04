@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\AuthScopes;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
@@ -16,11 +17,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->prefix('/categories')->group(function () {
-    Route::get('{categoryId}', [CategoryController::class, 'show']);
-    Route::post('/', [CategoryController::class, 'create']);
-    Route::put('{categoryId}', [CategoryController::class, 'update']);
-    Route::delete('{categoryId}', [CategoryController::class, 'delete']);
-    Route::get('/', [CategoryController::class, 'list']);
+    Route::get('{categoryId}', [CategoryController::class, 'show'])->middleware(['ability:'. AuthScopes::SCOPE_CATEGORY_SHOW]);
+    Route::post('/', [CategoryController::class, 'create'])->middleware(['ability:'. AuthScopes::SCOPE_CATEGORY_CREATE]);
+    Route::put('{categoryId}', [CategoryController::class, 'update'])->middleware(['ability:'. AuthScopes::SCOPE_CATEGORY_UPDATE]);
+    Route::delete('{categoryId}', [CategoryController::class, 'delete'])->middleware(['ability:'. AuthScopes::SCOPE_CATEGORY_UPDATE]);
+    Route::get('/', [CategoryController::class, 'list'])->middleware(['ability:'. AuthScopes::SCOPE_CATEGORY_LIST]);
 });
 
 Route::prefix('/auth')->group(function () {
