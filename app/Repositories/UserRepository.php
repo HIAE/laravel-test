@@ -2,18 +2,20 @@
 
 namespace App\Repositories;
 
-use App\Models\Category;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
-class CategoryRepository
+class UserRepository
 {
 
     public function create(array $data): Model|null
     {
         return DB::transaction(function () use ($data) {
-            $model = new Category($data);
+            $model = new User($data);
+            $model->password = Hash::make($model->password);
             return $model->save() ? $model : null;
         });
     }
@@ -36,14 +38,14 @@ class CategoryRepository
     public function findOne(int $primaryKey): Model|null
     {
         return DB::transaction(function () use ($primaryKey) {
-            return Category::find($primaryKey);
+            return User::find($primaryKey);
         });
     }
 
     public function findAll(): Collection
     {
         return DB::transaction(function () {
-            return Category::all();
+            return User::all();
         });
     }
 

@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\CategoryMessageHelper;
 use App\Helpers\UserMessageHelper;
-use App\Http\Requests\Category\CreateCategoryRequest;
-use App\Http\Requests\Category\UpdateCategoryRequest;
+use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\LoginUserRequest;
 use App\Services\Users\UserService;
 use Illuminate\Http\JsonResponse;
@@ -30,33 +28,32 @@ class AuthController extends Controller
         }
     }
 
-    public function create(CreateCategoryRequest $request): JsonResponse
+    public function create(CreateUserRequest $request): JsonResponse
     {
         try {
-            $result = $this->categoryService->create($request->validated());
+            $result = $this->userService->create($request->validated());
             return response()->json($result, Response::HTTP_CREATED);
         } catch (\Exception|\Throwable $err) {
-            return response()->json(['message' => CategoryMessageHelper::CREATE_CATEGORY_GENERAL_ERROR], Response::HTTP_BAD_REQUEST);
+            return response()->json(['message' => UserMessageHelper::CREATE_USER_GENERAL_ERROR], Response::HTTP_BAD_REQUEST);
         }
     }
 
-    public function userInfo(int $categoryId): JsonResponse
+    public function userInfo(): JsonResponse
     {
         try {
-            $result = $this->categoryService->get($categoryId);
-            return response()->json($result, Response::HTTP_OK);
+            return response()->json($this->userService->get(), Response::HTTP_OK);
         } catch (\Exception|\Throwable $err) {
-            return response()->json(['message' => CategoryMessageHelper::GET_CATEGORY_GENERAL_ERROR], Response::HTTP_BAD_REQUEST);
+            return response()->json(['message' => UserMessageHelper::GET_USER_ERROR], Response::HTTP_BAD_REQUEST);
         }
     }
 
-    public function update(int $categoryId, UpdateCategoryRequest $request): JsonResponse
-    {
-        try {
-            $result = $this->categoryService->update($categoryId, $request->validated());
-            return response()->json($result, Response::HTTP_OK);
-        } catch (\Exception|\Throwable $err) {
-            return response()->json(['message' => CategoryMessageHelper::UPDATE_CATEGORY_GENERAL_ERROR], Response::HTTP_BAD_REQUEST);
-        }
-    }
+//    public function update(int $categoryId, UpdateCategoryRequest $request): JsonResponse
+//    {
+//        try {
+//            $result = $this->categoryService->update($categoryId, $request->validated());
+//            return response()->json($result, Response::HTTP_OK);
+//        } catch (\Exception|\Throwable $err) {
+//            return response()->json(['message' => CategoryMessageHelper::UPDATE_CATEGORY_GENERAL_ERROR], Response::HTTP_BAD_REQUEST);
+//        }
+//    }
 }

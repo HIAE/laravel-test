@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('/categories')->group(function () {
+Route::middleware('auth:sanctum')->prefix('/categories')->group(function () {
     Route::get('{categoryId}', [CategoryController::class, 'show']);
     Route::post('/', [CategoryController::class, 'create']);
     Route::put('{categoryId}', [CategoryController::class, 'update']);
@@ -25,30 +24,9 @@ Route::prefix('/categories')->group(function () {
 });
 
 Route::prefix('/auth')->group(function () {
+    Route::post('/register', [AuthController::class, 'create']);
     Route::post('/login', [AuthController::class, 'login']);
-    Route::get('/user-info', [AuthController::class, 'userInfo']);
-});
-
-Route::post('/login', function (Request $request) {
-    dump($request->cookie('token'));
-
-    if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-        $user = Auth::user();
-        $token = $user->createToken('JWT');
-
-        return response()
-            ->json($token, 200);
-    }
-    return response()->json('Usuario invalido', 401);
-});
-
-Route::post('/tokens/create', function (Request $request) {
-    $token = $request->user()->createToken($request->token_name);
-    return ['token' => $token->plainTextToken];
-});
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    Route::middleware('auth:sanctum')->get('/user-info', [AuthController::class, 'userInfo']);
 });
 
 
