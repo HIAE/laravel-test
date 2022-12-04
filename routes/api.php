@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,11 @@ Route::prefix('/categories')->group(function () {
     Route::put('{categoryId}', [CategoryController::class, 'update']);
     Route::delete('{categoryId}', [CategoryController::class, 'delete']);
     Route::get('/', [CategoryController::class, 'list']);
+});
+
+Route::prefix('/auth')->group(function () {
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/user-info', [AuthController::class, 'userInfo']);
 });
 
 Route::post('/login', function (Request $request) {
