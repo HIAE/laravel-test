@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::prefix('/categories')->group(function () {
+//    Route::get('{category}', [CategoryController::class, 'show'])->name('category.show');
+    Route::post('/', [CategoryController::class, 'create']);
+//    Route::put('{category}', [CategoryController::class, 'update'])->name('category.update');
+//    Route::delete('{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
+//    Route::get('/', [CategoryController::class, 'index'])->name('category.index');
+});
 
 Route::post('/login', function (Request $request) {
     dump($request->cookie('token'));
@@ -35,3 +44,5 @@ Route::post('/tokens/create', function (Request $request) {
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
