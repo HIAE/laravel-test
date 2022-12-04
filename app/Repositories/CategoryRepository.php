@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Category;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -36,6 +37,13 @@ class CategoryRepository
     {
         return DB::transaction(function () use ($primaryKey) {
             return Category::find($primaryKey);
+        });
+    }
+
+    public function findAll(): Collection
+    {
+        return DB::transaction(function () {
+            return Category::all();
         });
     }
 
