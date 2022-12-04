@@ -67,6 +67,20 @@ class IdeaService
     /**
      * @throws Throwable
      */
+    public function updateStatus(int $identifier, string $newStatus): Model
+    {
+        $model = $this->ideaRepository->findOne($identifier);
+        throw_if(Auth::user()['role'] !== UserRoles::ADMIN, \Exception::class);
+        throw_if(!in_array($newStatus, IdeaStatus::getAvailableStatus()), \Exception::class);
+
+        $updatedModel = $this->ideaRepository->update(['status' => $newStatus], $model);
+        throw_if(!$updatedModel, \Exception::class);
+        return $updatedModel;
+    }
+
+    /**
+     * @throws Throwable
+     */
     public function delete(int $identifier): bool
     {
         $model = $this->ideaRepository->findOne($identifier);

@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->prefix('/categories')->group(function () {
 Route::middleware('auth:sanctum')->prefix('/ideas')->group(function () {
     Route::get('{ideaId}', [IdeaController::class, 'show'])->middleware(['ability:'. AuthScopes::SCOPE_IDEA_SHOW]);
     Route::post('/', [IdeaController::class, 'create'])->middleware(['ability:'. AuthScopes::SCOPE_IDEA_CREATE]);
+    Route::patch('{ideaId}', [IdeaController::class, 'change'])->middleware(['ability:'. AuthScopes::SCOPE_IDEA_UPDATE_STATUS]);
     Route::put('{ideaId}', [IdeaController::class, 'update'])->middleware(['ability:'. AuthScopes::SCOPE_IDEA_UPDATE]);
     Route::delete('{ideaId}', [IdeaController::class, 'delete'])->middleware(['ability:'. AuthScopes::SCOPE_IDEA_DELETE]);
     Route::get('/', [IdeaController::class, 'list'])->middleware(['ability:'. AuthScopes::SCOPE_IDEA_LIST]);

@@ -58,6 +58,17 @@ class IdeaController extends Controller
         }
     }
 
+    public function change(int $ideaId): JsonResponse
+    {
+        try {
+            $statusFromRequest = request()->only('status');
+            $result = $this->ideaService->updateStatus($ideaId, $statusFromRequest['status']);
+            return response()->json($result, Response::HTTP_OK);
+        } catch (\Exception|\Throwable $err) {
+            return response()->json(['message' => IdeaMessageHelper::UPDATE_IDEA_GENERAL_ERROR], Response::HTTP_BAD_REQUEST);
+        }
+    }
+
     public function delete(int $ideaId): JsonResponse
     {
         try {

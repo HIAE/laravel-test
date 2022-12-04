@@ -13,6 +13,7 @@ class AuthScopes
     const SCOPE_IDEA_SHOW = 'idea:show';
     const SCOPE_IDEA_CREATE = 'idea:create';
     const SCOPE_IDEA_UPDATE = 'idea:update';
+    const SCOPE_IDEA_UPDATE_STATUS = 'idea:change';
     const SCOPE_IDEA_DELETE = 'idea:delete';
     const SCOPE_IDEA_LIST = 'idea:list';
 
@@ -27,6 +28,7 @@ class AuthScopes
         self::SCOPE_IDEA_SHOW,
         self::SCOPE_IDEA_CREATE,
         self::SCOPE_IDEA_UPDATE,
+        self::SCOPE_IDEA_UPDATE_STATUS,
         self::SCOPE_IDEA_DELETE,
         self::SCOPE_IDEA_LIST,
     ];
