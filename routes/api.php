@@ -28,6 +28,7 @@ Route::prefix('/auth')->group(function () {
     Route::post('/register', [AuthController::class, 'create']);
     Route::post('/login', [AuthController::class, 'login']);
     Route::middleware('auth:sanctum')->get('/user-info', [AuthController::class, 'userInfo']);
+    Route::put('/user-update', [AuthController::class, 'update'])->middleware(['auth:sanctum' ,'ability:'. AuthScopes::SCOPE_USER_UPDATE]);
 });
 
 

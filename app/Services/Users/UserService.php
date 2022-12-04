@@ -52,4 +52,15 @@ class UserService
         return $model;
     }
 
+    /**
+     * @throws Throwable
+     */
+    public function update(array $data): Model
+    {
+        $model = $this->userRepository->findOne(Auth::id());
+        $updatedModel = $this->userRepository->update($data, $model);
+        throw_if(!$updatedModel, \Exception::class);
+        return $updatedModel;
+    }
+
 }

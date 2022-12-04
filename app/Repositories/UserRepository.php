@@ -23,6 +23,10 @@ class UserRepository
     public function update(array $data, Model $model): Model|bool
     {
         return DB::transaction(function () use ($data, $model) {
+            if(!empty($data['password'])){
+                $data['password'] = Hash::make($data['password']);
+            }
+
             $model->update($data);
             return $model->wasChanged() ? $model : false;
         });

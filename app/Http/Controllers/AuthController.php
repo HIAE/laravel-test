@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\UserMessageHelper;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\LoginUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Services\Users\UserService;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,13 +48,13 @@ class AuthController extends Controller
         }
     }
 
-//    public function update(int $categoryId, UpdateCategoryRequest $request): JsonResponse
-//    {
-//        try {
-//            $result = $this->categoryService->update($categoryId, $request->validated());
-//            return response()->json($result, Response::HTTP_OK);
-//        } catch (\Exception|\Throwable $err) {
-//            return response()->json(['message' => CategoryMessageHelper::UPDATE_CATEGORY_GENERAL_ERROR], Response::HTTP_BAD_REQUEST);
-//        }
-//    }
+    public function update(UpdateUserRequest $request): JsonResponse
+    {
+        try {
+            $result = $this->userService->update($request->validated());
+            return response()->json($result, Response::HTTP_OK);
+        } catch (\Exception|\Throwable $err) {
+            return response()->json(['message' => UserMessageHelper::UPDATE_USER_GENERAL_ERROR], Response::HTTP_BAD_REQUEST);
+        }
+    }
 }
