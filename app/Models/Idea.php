@@ -19,7 +19,18 @@ class Idea extends Model
         'title',
         'description',
         'status',
-        'category_id'
+        'category_id',
+        'user_id'
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'deleted_at',
+        'user_id'
     ];
 
     public function category(): BelongsTo
